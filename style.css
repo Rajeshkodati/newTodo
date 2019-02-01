@@ -118,9 +118,12 @@ footer ul li a:hover{
    border:1px solid #e2e2e2;
    background:#fff;
 }
-footer p{
-    position: absolute;
-    right:0px;
-    top:-10px;
-    font-size:18px;
+.clear{
+    background:none;
+    border:0px;
+    margin-left:360px;
+    margin-top:-45px;
+    font-size:16px;
+    display: none;
+    cursor:pointer;
 }
