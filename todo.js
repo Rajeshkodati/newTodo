@@ -35,44 +35,58 @@ function addItems(){
     addDiv.appendChild(destroy);
     listItem.appendChild(addDiv);
     document.querySelector('.todo-list').appendChild(listItem);
-    destroy.addEventListener('click',deleteItem)
     addDiv.addEventListener('dblclick',function(){
-    const editInput = document.createElement('input');
-    editItem.style.display = 'none';
-    destroy.style.display = 'none';
-    editInput.setAttribute('type','text');
-    editInput.classList.add('edit-input')
-    addDiv.appendChild(editInput);
-    editInput.addEventListener('blur',function(){
-    label.innerHTML = this.value;
-    this.style.display ='none';
-    editItem.style.display = 'block';
-    destroy.style.display = 'block';
-     });
-    
- });
-//  document.querySelector('.complete').addEventListener('click',function(){
-//     addDiv.style.display ='none';
-//  });
-editItem.addEventListener('click',editItemvalue);
+        const editInput = document.createElement('input');
+        editItem.style.display = 'none';
+        destroy.style.display = 'none';
+        editInput.setAttribute('type','text');
+        editInput.classList.add('edit-input')
+        addDiv.appendChild(editInput);
+        editInput.addEventListener('blur',function(){
+            label.innerHTML = this.value;
+            this.style.display ='none';
+            editItem.style.display = 'block';
+            destroy.style.display = 'block';
+        });
+        
+    });
+    destroy.addEventListener('click',function(){
+        const deletTask = deleteItem.bind(this);
+        deletTask(editItem);
+        //deleteItem.bind(this)(editItem);
+    });
+    editItem.addEventListener('click',editItemvalue);
 }
-function deleteItem(){
-    document.querySelector('.count').textContent = --itemCount;
+function deleteItem(editItem){
+    console.log(this)
+    if(!editItem.checked){
+       document.querySelector('.count').textContent = --itemCount;
+    }
     this.parentNode.remove();
 }
 
 function editItemvalue(){
+     console.log(this.checked,"hello");
     document.querySelector('.clear').style.display = 'block';
-    document.querySelector('.count').textContent = --itemCount;
-    document.querySelector('.view').classList.toggle('selected')
+    if(this.checked){
+        document.querySelector('.count').textContent = --itemCount; 
+    } else{
+        document.querySelector('.count').textContent = ++itemCount;
+    }
+    this.parentNode.classList.toggle('selected'); 
     if(itemCount === 0){
         document.querySelector('.count').textContent = '';
-          removeEvent();
+          
     }
     document.querySelector('.clear').addEventListener('click',clearItemList);
 }
 function clearItemList(){
-   console.log(document.querySelector('.selected').remove());
+   document.querySelectorAll('.selected').forEach((item) =>{
+        item.remove();
+   }); 
+    if(itemCount === 0){
+       document.getElementById('footer').style.display ='none'; 
+    } 
 }
 function removeEvent(){
     if(itemCount === 0){
