@@ -88,8 +88,3 @@ function clearItemList(){
        document.getElementById('footer').style.display ='none'; 
     } 
 }
-function removeEvent(){
-    if(itemCount === 0){
-        document.querySelector('.toggle').removeEventListener('click',editItemvalue);
-    }
-}
